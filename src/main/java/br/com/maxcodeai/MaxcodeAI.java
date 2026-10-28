@@ -1,6 +1,6 @@
 package br.com.maxcodeai;
 
-import static br.com.maxcodeai.view.AtualizadorMaxcodeAI.VERSAO_ATUAL;
+import static br.com.maxcodeai.view.Atualizador.VERSAO_ATUAL;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
