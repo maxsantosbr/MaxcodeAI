@@ -17,6 +17,7 @@ import javax.swing.event.DocumentListener;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -34,24 +35,24 @@ import java.util.prefs.Preferences;
 
 public class MaxcodeAI extends JFrame {
 
-    private static final Preferences PREFS =
-            Preferences.userNodeForPackage(MaxcodeAI.class);
+    private static final Preferences PREFS
+            = Preferences.userNodeForPackage(MaxcodeAI.class);
 
     private static final String THEME_KEY = "theme";
 
-    private static final String API_URL =
-            "http://localhost:11434/api/chat";
+    private static final String API_URL
+            = "http://localhost:11434/api/chat";
 
     private static final String MODEL = "qwen2.5-coder:7b";
 
-    private static final File PASTA_DADOS =
-            new File(System.getProperty("user.home"), ".maxcodeai");
+    private static final File PASTA_DADOS
+            = new File(System.getProperty("user.home"), ".maxcodeai");
 
-    private static final File PASTA_CONVERSAS =
-            new File(PASTA_DADOS, "conversations");
+    private static final File PASTA_CONVERSAS
+            = new File(PASTA_DADOS, "conversations");
 
-    private static final File ARQUIVO_HISTORICO_ANTIGO =
-            new File(PASTA_DADOS, "historico.dat");
+    private static final File ARQUIVO_HISTORICO_ANTIGO
+            = new File(PASTA_DADOS, "historico.dat");
 
     private JPanel rootPanel;
     private JPanel sidebar;
@@ -137,6 +138,98 @@ public class MaxcodeAI extends JFrame {
         }
     }
 
+    // Ícone que desenha a imagem original em alta qualidade,
+    // no tamanho exato da tela (inclusive com escala de 125% ou 150%).
+    private static class IconeAltaQualidade implements Icon {
+
+        private final Image imagem;
+        private final int largura;
+        private final int altura;
+
+        IconeAltaQualidade(Image imagem, int largura, int altura) {
+            this.imagem = imagem;
+            this.largura = largura;
+            this.altura = altura;
+        }
+
+        @Override
+        public void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+
+            try {
+                g2.setRenderingHint(
+                        RenderingHints.KEY_INTERPOLATION,
+                        RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+                g2.setRenderingHint(
+                        RenderingHints.KEY_RENDERING,
+                        RenderingHints.VALUE_RENDER_QUALITY);
+                g2.setRenderingHint(
+                        RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+
+                g2.drawImage(imagem, x, y, largura, altura, null);
+
+            } finally {
+                g2.dispose();
+            }
+        }
+
+        @Override
+        public int getIconWidth() {
+            return largura;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return altura;
+        }
+    }
+
+    // Reduz a imagem aos poucos (metade a cada passo) para evitar serrilhado.
+    private static BufferedImage reduzirSuave(
+            Image origem, int larguraAlvo, int alturaAlvo) {
+
+        int largura = origem.getWidth(null);
+        int altura = origem.getHeight(null);
+
+        BufferedImage atual = new BufferedImage(
+                largura, altura, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g0 = atual.createGraphics();
+        g0.drawImage(origem, 0, 0, null);
+        g0.dispose();
+
+        while (largura > larguraAlvo || altura > alturaAlvo) {
+
+            if (largura > larguraAlvo) {
+                largura = Math.max(larguraAlvo, largura / 2);
+            }
+
+            if (altura > alturaAlvo) {
+                altura = Math.max(alturaAlvo, altura / 2);
+            }
+
+            BufferedImage proxima = new BufferedImage(
+                    largura, altura, BufferedImage.TYPE_INT_ARGB);
+
+            Graphics2D g = proxima.createGraphics();
+
+            g.setRenderingHint(
+                    RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g.setRenderingHint(
+                    RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+
+            g.drawImage(atual, 0, 0, largura, altura, null);
+            g.dispose();
+
+            atual = proxima;
+        }
+
+        return atual;
+    }
+
     // ---------------------------------------------------------
     // CONSTRUTOR
     // ---------------------------------------------------------
@@ -192,8 +285,8 @@ public class MaxcodeAI extends JFrame {
         panelColor = UIManager.getColor("TextField.background");
         textColor = UIManager.getColor("Label.foreground");
 
-        secondaryTextColor =
-                UIManager.getColor("Label.disabledForeground");
+        secondaryTextColor
+                = UIManager.getColor("Label.disabledForeground");
 
         accentColor = UIManager.getColor("Component.focusColor");
         borderColor = UIManager.getColor("Component.borderColor");
@@ -279,10 +372,9 @@ public class MaxcodeAI extends JFrame {
 
             ImageIcon imagemOriginal = new ImageIcon(caminhoLogo);
 
-            Image imagemRedimensionada = imagemOriginal.getImage()
-                    .getScaledInstance(102, 92, Image.SCALE_SMOOTH);
-
-            logo = new JLabel(new ImageIcon(imagemRedimensionada));
+            logo = new JLabel(new IconeAltaQualidade(
+                    reduzirSuave(imagemOriginal.getImage(), 204, 184),
+                    102, 92));
 
         } else {
 
@@ -426,19 +518,19 @@ public class MaxcodeAI extends JFrame {
 
         JButton settingsButton = createSidebarButton("Configurações");
 
-        settingsButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(
+        settingsButton.addActionListener(e
+                -> JOptionPane.showMessageDialog(
                         this,
                         "Modelo configurado: " + MODEL + "\n"
                         + "Servidor: " + API_URL,
                         "Configurações",
                         JOptionPane.INFORMATION_MESSAGE));
-                
-        JButton atualizarButton =
-        createSidebarButton("Verificar atualizações");
 
-atualizarButton.addActionListener(e ->
-        br.com.maxcodeai.view.Atualizador.abrir(this));
+        JButton atualizarButton
+                = createSidebarButton("Verificar atualizações");
+
+        atualizarButton.addActionListener(e
+                -> br.com.maxcodeai.view.Atualizador.abrir(this));
 
 // CORREÇÃO: usa o método de criação de botão já existente.
         JButton aboutButton = createSidebarButton("Sobre");
@@ -471,22 +563,22 @@ atualizarButton.addActionListener(e ->
         sidebar.add(conversationScroll);
         sidebar.add(Box.createVerticalStrut(8));
         sidebar.add(deleteChatButton);
-        sidebar.add(Box.createVerticalStrut(10));
+        sidebar.add(Box.createVerticalStrut(5));
         sidebar.add(projectsButton);
         sidebar.add(Box.createVerticalStrut(5));
         sidebar.add(filesButton);
         sidebar.add(Box.createVerticalStrut(5));
-        
-sidebar.add(settingsButton);
-sidebar.add(Box.createVerticalStrut(5));
 
-sidebar.add(atualizarButton);
-sidebar.add(Box.createVerticalStrut(5));
+        sidebar.add(settingsButton);
+        sidebar.add(Box.createVerticalStrut(5));
 
-sidebar.add(aboutButton);
-sidebar.add(Box.createVerticalStrut(9));
+        sidebar.add(atualizarButton);
+        sidebar.add(Box.createVerticalStrut(5));
 
-sidebar.add(localLabel);
+        sidebar.add(aboutButton);
+        sidebar.add(Box.createVerticalStrut(9));
+
+        sidebar.add(localLabel);
 
         sidebar.add(Box.createVerticalStrut(5));
         sidebar.add(statusLabel);
@@ -1222,8 +1314,8 @@ sidebar.add(localLabel);
 
     private void verificarConexao() {
 
-        SwingWorker<Boolean, Void> worker =
-                new SwingWorker<Boolean, Void>() {
+        SwingWorker<Boolean, Void> worker
+                = new SwingWorker<Boolean, Void>() {
 
             @Override
             protected Boolean doInBackground() {
@@ -1259,13 +1351,13 @@ sidebar.add(localLabel);
 
                     statusLabel.setText(
                             conectado
-                            ? "Modelo local disponível"
-                            : "Ollama não respondeu");
+                                    ? "Modelo local disponível"
+                                    : "Ollama não respondeu");
 
                     statusLabel.setForeground(
                             conectado
-                            ? new Color(45, 170, 110)
-                            : new Color(220, 100, 100));
+                                    ? new Color(45, 170, 110)
+                                    : new Color(220, 100, 100));
 
                 } catch (Exception ex) {
                     statusLabel.setText("Falha na conexão");
@@ -1323,15 +1415,15 @@ sidebar.add(localLabel);
 
         notice.setText(
                 !avisoInicialExibido
-                ? "A primeira resposta pode demorar enquanto o modelo carrega."
-                : "A IA está preparando a resposta.");
+                        ? "A primeira resposta pode demorar enquanto o modelo carrega."
+                        : "A IA está preparando a resposta.");
 
         avisoInicialExibido = true;
 
         mostrarIndicadorPensando();
 
-        SwingWorker<String, Void> worker =
-                new SwingWorker<String, Void>() {
+        SwingWorker<String, Void> worker
+                = new SwingWorker<String, Void>() {
 
             @Override
             protected String doInBackground() throws Exception {
@@ -1359,8 +1451,8 @@ sidebar.add(localLabel);
                             ? causa.getMessage()
                             : ex.getMessage();
 
-                    String erro =
-                            "Não consegui obter uma resposta do Ollama.\n\n"
+                    String erro
+                            = "Não consegui obter uma resposta do Ollama.\n\n"
                             + "Detalhe: " + detalhe
                             + "\n\nVerifique se o Ollama está em execução "
                             + "e se o modelo " + MODEL
@@ -1753,8 +1845,7 @@ sidebar.add(localLabel);
 
             String respostaJson;
 
-            try (InputStream entrada = fluxo;
-                    ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+            try (InputStream entrada = fluxo; ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
 
                 byte[] bloco = new byte[4096];
                 int quantidade;
@@ -2267,10 +2358,9 @@ sidebar.add(localLabel);
 
             ImageIcon icone = new ImageIcon(recurso);
 
-            Image imagem = icone.getImage().getScaledInstance(
-                    90, 81, Image.SCALE_SMOOTH);
-
-            logoLabel = new JLabel(new ImageIcon(imagem));
+            logoLabel = new JLabel(new IconeAltaQualidade(
+                    reduzirSuave(icone.getImage(), 180, 162),
+                    90, 81));
 
         } else {
 
@@ -2287,16 +2377,16 @@ sidebar.add(localLabel);
         JLabel titulo = new JLabel("Maxcode AI", SwingConstants.CENTER);
         titulo.setFont(new Font("SansSerif", Font.BOLD, 18));
 
-        JLabel versao = new JLabel("Versão "+VERSAO_ATUAL, SwingConstants.CENTER);
+        JLabel versao = new JLabel("Versão " + VERSAO_ATUAL, SwingConstants.CENTER);
 
         JLabel descricao = new JLabel(
-        "<html><div style='text-align:center; padding: 5px;'>"
-        + "Seu Assistente inteligente.<br>"        
-        + "</div></html>",
-        SwingConstants.CENTER);
+                "<html><div style='text-align:center; padding: 5px;'>"
+                + "Seu Assistente inteligente.<br>"
+                + "</div></html>",
+                SwingConstants.CENTER);
 
-descricao.setFont(new Font("SansSerif", Font.PLAIN, 13));
-descricao.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+        descricao.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        descricao.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
         JLabel desenvolvedor = new JLabel(
                 "Desenvolvido por Maxwell Souza dos Santos",
