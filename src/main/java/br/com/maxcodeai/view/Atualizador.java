@@ -35,7 +35,7 @@ public class Atualizador extends JDialog {
             "https://raw.githubusercontent.com/maxsantosbr/MaxcodeAI-releases/main/version.txt";
 
     private static final String URL_INSTALADOR =
-            "https://github.com/maxsantosbr/TreinaNorma-releases/releases/latest/download/TreinaNorma.exe";
+            "https://github.com/maxsantosbr/MaxcodeAI-releases/releases/latest/download/MaxcodeAI.exe";
 
     private final JLabel lblStatus = new JLabel(
             "Pronto para verificar atualizações.");
