@@ -1,0 +1,345 @@
+                CONTRATO DE LICENÇA DE USO DE SOFTWARE
+                 (END USER LICENSE AGREEMENT - EULA)
+
+
+    MaxcodeAI — Versão do documento: 1.0.1
+    Licença por Máquina | Licença vitalícia | Uso Não Comercial
+
+
+1. PARTES
+
+
+Licenciante: Maxwell Souza dos Santos
+CNPJ: 54.718.287/0001-19
+Endereço: Rua Padre Antônio Nóbrega, 1.425, Água Branca,
+          São Francisco do Sul — SC, CEP 89233-050
+
+Licenciado: O usuário pessoa física ou jurídica que adquirir uma licença
+válida para o software MaxcodeAI, doravante denominado "LICENCIADO".
+
+
+2. DEFINIÇÕES
+
+
+Para fins deste contrato, os termos abaixo significam:
+
+2.1. Software — O programa de computador denominado MaxcodeAI,
+     versão 1.0.0, incluindo seus módulos, bibliotecas, arquivos de
+     configuração, documentação e componentes acessórios.
+
+2.2. Licença — Autorização não exclusiva e intransferível de uso
+     do Software, concedida mediante pagamento de assinatura.
+
+2.3. Máquina — Unidade física de computador (desktop, notebook ou
+     servidor) identificada por hardware único, na qual o Software
+     será instalado e executado.
+
+2.4. Licença vitalícia — Regime de licenciamento sem prazo de
+     expiração, com vigência iniciada na data da ativação e mantida
+     indefinidamente, mediante pagamento único.
+
+2.5. Atualização (Update) — Correções de bugs, patches de
+     segurança e melhorias dentro da versão 1.x (versões menores).
+
+2.6. Atualização (Upgrade) — Mudança para versão major posterior
+     (ex: 2.0), não coberta por esta licença.
+
+
+3. OBJETO
+
+
+Este contrato tem por objeto a concessão de Licença de uso do Software
+MaxcodeAI, versão 1.0, sob o regime de ASSINATURA VITALÍCIA POR MÁQUINA,
+mediante pagamento antecipado, nos termos e condições aqui estabelecidos.
+
+
+4. CONCESSÃO DA LICENÇA
+
+
+4.1. O LICENCIANTE concede ao LICENCIADO, em caráter não exclusivo,
+     pessoal, intransferível e revogável, o direito de:
+
+     a) Instalar o Software em UMA (1) única Máquina por licença
+        adquirida;
+     b) Utilizar o Software exclusivamente para sua operação interna
+        e não comercial;
+     c) Realizar uma cópia de segurança (backup) do Software para
+        fins de recuperação.
+
+4.2. Cada Máquina na qual o Software for instalado exige uma Licença
+     individual e independente.
+
+4.3. A Licença entra em vigor na data da ativação e permanece válida
+     indefinidamente para a versão adquirida (cláusula 2.6), sem
+     necessidade de renovação.
+
+4.4. A Licença é vinculada à identificação de hardware (Hardware ID)
+     da Máquina em que foi ativada. Alterações significativas de
+     hardware, como troca de placa de rede, ou reinstalação do
+     sistema operacional com configurações diferentes, podem alterar
+     essa identificação e exigir nova ativação. Nesses casos, o
+     LICENCIADO deverá entrar em contato com o suporte técnico
+     (suporte@ultracipa.com.br) para reativação da Licença, sem
+     custo adicional.
+
+
+5. LIMITAÇÕES DE USO
+
+
+É expressamente PROIBIDO ao LICENCIADO:
+
+5.1. Utilizar o Software para fins comerciais, incluindo, mas não se
+     limitando a: prestação de serviços a terceiros, geração de receita
+     direta ou indireta, consultoria remunerada ou qualquer atividade
+     com fins lucrativos baseada no Software.
+
+5.2. Copiar, distribuir, alugar, arrendar, emprestar, sublicenciar ou
+     disponibilizar o Software a terceiros, total ou parcialmente.
+
+5.3. Realizar engenharia reversa, descompilar, desmontar ou tentar
+     obter o código-fonte do Software, exceto quando expressamente
+     permitido por licenciante.
+
+5.4. Remover, alterar ou ocultar avisos de direitos autorais, marcas
+     registradas ou outras notificações de propriedade intelectual
+     contidas no Software.
+
+5.5. Depreciar, menosprezar, desvalorizar o software em público no 
+     intuito de desqualificar o produto por qualquer motivo, inclusive
+     para fins de concorrência.
+
+5.6. Utilizar o Software em violação a qualquer lei ou regulamento
+     brasileiro aplicável.
+
+
+6. LICENÇA E PAGAMENTO
+
+
+6.1. Valor da Licença: R$ 997,00 (novecentos e noventa e sete reais)
+     por Máquina, por período vitalício.
+
+6.2. Forma de Pagamento: Pagamento único e antecipado, devido no
+     momento da ativação da Licença.
+
+6.3. Vigência: A Licença adquirida sob o regime vitalício não possui
+     data de expiração nem sujeita-se a renovação, cobrança ou
+     manifestação periódica das partes. O direito de uso permanece
+     válido enquanto o LICENCIADO mantiver a Máquina ativada nos
+     termos deste contrato.
+
+6.4. Como o pagamento da Licença é único e antecipado (cláusula 6.2),
+     não há inadimplência relativa ao uso do Software em si. A
+     cláusula de inadimplência aplica-se exclusivamente à extensão
+     opcional de suporte técnico prevista na cláusula 7.4, cujo não
+     pagamento implica apenas a não prorrogação do suporte, sem
+     afetar o direito de uso do Software.
+
+6.5. Descontos por Volume: O LICENCIANTE concede descontos
+     progressivos sobre o valor da licença conforme a quantidade
+     de máquinas licenciadas pelo LICENCIADO:
+
+     a) De 5 (cinco) a 9 (nove) máquinas: 10% (dez por cento) de
+        desconto sobre o valor total;
+     b) De 10 (dez) a 24 (vinte e quatro) máquinas: 20% (vinte por
+        cento) de desconto sobre o valor total;
+     c) 25 (vinte e cinco) máquinas ou mais: desconto a ser negociado
+        diretamente com o LICENCIANTE.
+
+
+7. SUPORTE TÉCNICO
+
+7.1. O LICENCIANTE fornecerá suporte técnico ao LICENCIADO pelo prazo
+     de 1 ano contados da ativação da Licença,
+     compreendendo:
+
+     a) Esclarecimento de dúvidas sobre instalação e configuração caso
+        os tutoriais em vídeos e o manual do usuário forem insuficientes;
+     b) Orientação sobre o uso das funcionalidades do Software;
+     c) Diagnóstico e auxílio na resolução de erros de operação.
+
+7.2. O suporte será prestado exclusivamente por meio de:
+
+     - E-mail: suporte@ultracipa.com.br
+     - Horário de atendimento: dias úteis, das 9h às 18h (horário de
+       Brasília)
+     - Atendimento remoto em situações adversas (valores poderão ser
+       cobrados) cujo software desktop remoto é escolhido pelo licenciante. 
+
+7.3. Não estão incluídos no suporte técnico:
+
+     a) Treinamento personalizado;
+     b) Customizações ou alterações no Software;
+     c) Problemas decorrentes de hardware, sistema operacional ou
+       rede do LICENCIADO.
+
+7.4. O LICENCIADO poderá adquirir, opcionalmente, a extensão do
+     prazo de suporte técnico para 1 (um) ano mediante pagamento
+     adicional por máquina, por período de assinatura.
+
+
+8. ATUALIZAÇÕES
+
+
+8.1. Durante o período de vigência da Assinatura vitalícia, o LICENCIADO
+     terá direito a receber Atualizações (Updates) do Software,
+     conforme definido na cláusula 2.5.
+
+8.2. As Atualizações serão disponibilizadas para download automática
+     ou manualmente, sem custo adicional.
+
+8.3. As atualizações poderão ser realizadas automaticamente, sem
+     necessidade de aviso prévio ou autorização do LICENCIADO.
+
+8.4. É de inteira responsabilidade do usuário, antes de atualizar o
+     software, fazer o backup de todos os relatórios gerados no
+     software MaxcodeAI.
+
+8.5  Também é de responsabilidade do usuário verificar atualização do
+     software quando a função de atualização automática estiver desabilitada.
+
+8.6. Upgrades para versões superiores (ex: versão 2.0 em diante) não estão
+     incluídos e serão comercializados separadamente.
+
+8.7  O usuário deve estar ciente de que as atualizações substituirão
+     automaticamente a versão instalada em sua máquina.
+
+
+9. PROPRIEDADE INTELECTUAL
+
+
+9.1. Todos os direitos, títulos e interesses relativos ao Software,
+     incluindo direitos autorais, marcas, patentes, segredos comerciais
+     e qualquer outra propriedade intelectual, pertencem exclusivamente
+     ao LICENCIANTE ou a seus licenciadores.
+
+9.2. Este contrato não transfere ao LICENCIADO qualquer direito de
+     propriedade intelectual sobre o Software, concedendo apenas uma
+     licença de uso nos termos aqui estabelecidos.
+
+
+10. GARANTIA E ISENÇÃO DE RESPONSABILIDADE
+
+
+10.1. O Software é fornecido "NO ESTADO EM QUE SE ENCONTRA" ("AS IS"),
+      sem garantias de qualquer tipo, expressas ou implícitas, incluindo,
+      mas não se limitando a, garantias de comercialização, adequação a
+      uma finalidade específica ou não violação.
+
+10.2. O LICENCIANTE não garante que o Software atenderá a todos os
+      requisitos do LICENCIADO ou que funcionará sem interrupções ou
+      erros.
+
+10.3. O LICENCIADO assume integralmente os riscos pela qualidade e
+      desempenho do Software, sendo o único responsável por eventuais
+      danos ou perdas decorrentes de seu uso.
+
+
+11. LIMITAÇÃO DE RESPONSABILIDADE
+
+11.1. Em nenhuma hipótese o LICENCIANTE será responsável por danos
+      diretos, indiretos, incidentais, especiais, consequenciais ou
+      punitivos decorrentes do uso ou da impossibilidade de uso do
+      Software, mesmo que tenha sido avisado da possibilidade de tais
+      danos.
+
+11.2. A responsabilidade total do LICENCIANTE, em qualquer caso, não
+      excederá o valor total pago pelo LICENCIADO pelo Software no
+      período da validade imediatamente anteriores ao evento que deu
+      origem à reivindicação.
+
+
+12. RESCISÃO
+
+
+12.1. O LICENCIANTE poderá rescindir este contrato imediatamente, sem
+      necessidade de notificação prévia, se o LICENCIADO:
+
+      a) Violar qualquer disposição deste contrato;
+      b) Utilizar o Software de forma fraudulenta ou ilegal;
+      c) Deixar de efetuar o pagamento devido.
+
+12.2. Em caso de rescisão, o LICENCIADO deverá desinstalar e destruir
+      todas as cópias do Software em sua posse, sem direito a
+      reembolso do valor pago.
+
+12.3. O LICENCIADO poderá rescindir este contrato a qualquer momento
+      mediante notificação por escrito e desinstalação completa do
+      Software, sem direito a restituição de valores proporcionais.
+
+
+13. DISPOSIÇÕES GERAIS
+
+
+13.1. Este contrato constitui o acordo integral entre as partes,
+      substituindo todos os entendimentos anteriores, escritos ou
+      verbais, relativos ao objeto deste contrato.
+
+13.2. Se qualquer cláusula deste contrato for considerada inválida ou
+      inexequível, as demais cláusulas permanecerão em pleno vigor.
+
+13.3. A tolerância quanto ao descumprimento de qualquer cláusula não
+      constituirá renúncia a direitos nem precedente para novos
+      descumprimentos.
+
+13.4. Este contrato não cria qualquer vínculo societário, de parceria,
+     de emprego ou de representação entre as partes.
+
+13.5. Nos termos do art. 49, §1º, II do Código de Defesa do
+     Consumidor (Lei 8.078/90), o LICENCIADO é previamente informado
+     e expressamente consente que, por se tratar de produto digital
+     com entrega e ativação imediata, não possui direito de
+     arrependimento após o download e/ou ativação do Software.
+
+13.6. O LICENCIANTE poderá alterar os valores cobrados para novas
+      aquisições de Licença a qualquer momento, sem necessidade de
+      comunicação prévia. Tais alterações não afetam Licenças já
+      adquiridas e ativadas, que permanecem regidas pelas condições
+      vigentes na data da compra.
+
+13.7 Para que a comunicação prévia tenha efeito é necessário que o 
+     usuário forneça um e-mail válido preferido e verdadeiramente
+     de uso frequente. 
+
+13.8 O LICENCIADO deve garantir que a sua máquina, notebook ou desktop
+     esteja em perfeitas condições de uso e apto para executar o software
+     MaxcodeAI de forma que este funcione corretamente.
+
+13.9 O software MaxcodeAI é comercializado livre de vírus, pragas, phishing,
+     malwares ou quaisquer pragas digitais. Cabe exclusivamente ao LICENCIADO
+     dispor de proteção de sua máquina contra ameaças digitais de modo a evitar
+     a infecção do software MaxcodeAI. 
+
+
+14. FORO E LEGISLAÇÃO APLICÁVEL
+
+
+14.1. Este contrato é regido pelas leis da República Federativa do
+      Brasil.
+
+14.2. Fica eleito o foro da Comarca de São Francisco do Sul, Estado
+      de Santa Catarina, com exclusão de qualquer outro, por mais
+      privilegiado que seja, para dirimir quaisquer controvérsias
+      decorrentes deste contrato.
+
+15. PROTEÇÃO DE DADOS (LGPD)
+
+
+15.1. Na operação do Software, o LICENCIADO (controlador) poderá
+      inserir dados pessoais de colaboradores (nome, CPF, foto,
+      vínculo empregatício e voto), cabendo ao LICENCIANTE (operador)
+      o tratamento estrito e limitado às finalidades do Software,
+      nos termos da Lei 13.709/2018 (LGPD).
+
+15.2. O LICENCIANTE não compartilha, vende ou transfere dados
+      pessoais tratados por meio do Software a terceiros.
+
+15.3. O LICENCIADO declara estar ciente de que é o responsável
+      legal pela base legal e pelo consentimento dos titulares
+      dos dados inseridos no Software.
+
+
+  A aceitação digital durante o processo de instalação ou ativação do
+  Software vale como aceitação plena dos termos deste contrato, nos
+  termos do art. 107 do Código Civil Brasileiro (Lei 10.406/2002) e
+  do Marco Civil da Internet (Lei 12.965/2014).
+
