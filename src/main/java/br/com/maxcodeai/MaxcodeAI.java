@@ -54,6 +54,8 @@ public class MaxcodeAI extends JFrame {
     private static final File ARQUIVO_HISTORICO_ANTIGO
             = new File(PASTA_DADOS, "historico.dat");
 
+    private boolean contextMenuClick = false;
+
     private JPanel rootPanel;
     private JPanel sidebar;
     private JPanel topBar;
@@ -246,6 +248,25 @@ public class MaxcodeAI extends JFrame {
         buildInterface();
         inicializarConversas();
         verificarConexao();
+
+        //icone
+        try (java.io.InputStream is
+                = getClass().getResourceAsStream("/br/com/maxcodeai/imagens/icone.png")) {
+
+            if (is != null) {
+                java.awt.Image icone = javax.imageio.ImageIO.read(is);
+                setIconImage(icone.getScaledInstance(
+                        256,
+                        256,
+                        java.awt.Image.SCALE_SMOOTH
+                ));
+            } else {
+                System.err.println("Ícone não encontrado: /br/com/maxcodeai/imagens/icone.png");
+            }
+
+        } catch (java.io.IOException e) {
+        }
+        //icone
     }
 
     // ---------------------------------------------------------
@@ -422,8 +443,9 @@ public class MaxcodeAI extends JFrame {
         conversationList.setCellRenderer(new ConversationRenderer());
 
         conversationList.addListSelectionListener(e -> {
-
-            if (!e.getValueIsAdjusting() && !changingConversation) {
+            if (!e.getValueIsAdjusting()
+                    && !changingConversation
+                    && !contextMenuClick) {
 
                 Conversation selected = conversationList.getSelectedValue();
 
@@ -431,6 +453,94 @@ public class MaxcodeAI extends JFrame {
                         && !selected.id.equals(currentConversationId)) {
                     abrirConversa(selected);
                 }
+            }
+        });
+
+        // Menu de contexto da lista de conversas
+        javax.swing.JPopupMenu menuConversas = new javax.swing.JPopupMenu();
+
+        javax.swing.JMenuItem abrirItem
+                = new javax.swing.JMenuItem("Abrir conversa");
+
+        javax.swing.JMenuItem excluirItem
+                = new javax.swing.JMenuItem("Excluir conversa");
+
+        javax.swing.JMenuItem renomearItem
+                = new javax.swing.JMenuItem("Renomear conversa");
+
+// Ação: abrir a conversa selecionada
+        abrirItem.addActionListener(e -> {
+            Conversation selecionada = conversationList.getSelectedValue();
+
+            if (selecionada != null) {
+                abrirConversa(selecionada);
+            }
+        });
+
+// Ação: excluir a conversa selecionada
+        excluirItem.addActionListener(e -> {
+            if (conversationList.getSelectedValue() != null) {
+                excluirConversa();
+            }
+        });
+
+        renomearItem.addActionListener(e -> renomearConversa());
+
+// Monta as opções do menu
+        menuConversas.add(abrirItem);
+        menuConversas.add(renomearItem);
+        menuConversas.addSeparator();
+        menuConversas.add(excluirItem);
+
+// Detecta o clique com o botão direito
+        conversationList.addMouseListener(
+                new java.awt.event.MouseAdapter() {
+
+            private void mostrarMenu(java.awt.event.MouseEvent e) {
+
+                if (!e.isPopupTrigger()) {
+                    return;
+                }
+
+                int indice = conversationList.locationToIndex(e.getPoint());
+
+                if (indice < 0) {
+                    return;
+                }
+
+                java.awt.Rectangle limites
+                        = conversationList.getCellBounds(indice, indice);
+
+                // Só mostra o menu quando o clique ocorrer sobre uma conversa
+                if (limites == null || !limites.contains(e.getPoint())) {
+                    return;
+                }
+
+                // Seleciona a conversa sem abri-la automaticamente
+                contextMenuClick = true;
+
+                try {
+                    conversationList.setSelectedIndex(indice);
+                } finally {
+                    contextMenuClick = false;
+                }
+
+                // Exibe o menu no local do clique
+                menuConversas.show(
+                        conversationList,
+                        e.getX(),
+                        e.getY()
+                );
+            }
+
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                mostrarMenu(e);
+            }
+
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) {
+                mostrarMenu(e);
             }
         });
 
@@ -1022,6 +1132,122 @@ public class MaxcodeAI extends JFrame {
         }
 
         atualizarBotoesConversa();
+    }
+
+    private void renomearConversa() {
+
+        if (!sendButton.isEnabled()) {
+            return;
+        }
+
+        Conversation selecionada = conversationList.getSelectedValue();
+
+        if (selecionada == null) {
+            return;
+        }
+
+        String novoTitulo = JOptionPane.showInputDialog(
+                this,
+                "Digite o novo nome da conversa:",
+                selecionada.title
+        );
+
+        if (novoTitulo == null) {
+            return;
+        }
+
+        novoTitulo = novoTitulo.trim();
+
+        if (novoTitulo.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "O nome da conversa não pode ficar vazio.",
+                    "MAXCODE AI",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        if (novoTitulo.length() > 100) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "O nome pode ter no máximo 100 caracteres.",
+                    "MAXCODE AI",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        File arquivo = arquivoConversa(selecionada.id);
+
+        if (!arquivo.isFile()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "O arquivo da conversa não foi encontrado.",
+                    "MAXCODE AI",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        List<ChatMessage> mensagens;
+
+        if (selecionada.id.equals(currentConversationId)) {
+            mensagens = new ArrayList<>(history);
+        } else {
+            mensagens = new ArrayList<>();
+            List<ChatMessage> historicoOriginal = new ArrayList<>(history);
+
+            try {
+                history.clear();
+
+                if (!carregarMensagens(selecionada.id)) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Não foi possível carregar as mensagens da conversa.",
+                            "MAXCODE AI",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                mensagens.addAll(history);
+
+            } finally {
+                history.clear();
+                history.addAll(historicoOriginal);
+            }
+        }
+
+        if (!gravarConversa(arquivo, novoTitulo, mensagens)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Não foi possível salvar o novo nome.",
+                    "MAXCODE AI",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        selecionada.title = novoTitulo;
+
+        int indice = conversationList.getSelectedIndex();
+
+        if (indice >= 0) {
+            conversationModel.setElementAt(selecionada, indice);
+            conversationList.setSelectedIndex(indice);
+        }
+
+        if (selecionada.id.equals(currentConversationId)) {
+            conversationTitleLabel.setText(novoTitulo);
+        }
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Conversa renomeada com sucesso.",
+                "MAXCODE AI",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 
     private void selecionarConversaAtual() {
