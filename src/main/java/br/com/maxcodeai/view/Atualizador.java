@@ -23,7 +23,7 @@ import java.nio.file.StandardCopyOption;
  */
 public class Atualizador extends JDialog {
 
-       public static final String VERSAO_ATUAL = "1.1.3";
+       public static final String VERSAO_ATUAL = "1.2.3";
 
     /*
      * SUBSTITUA estas URLs pelas URLs reais do seu servidor.
