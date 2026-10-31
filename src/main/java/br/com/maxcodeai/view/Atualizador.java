@@ -23,7 +23,7 @@ import java.nio.file.StandardCopyOption;
  */
 public class Atualizador extends JDialog {
 
-       public static final String VERSAO_ATUAL = "1.2.3";
+       public static final String VERSAO_ATUAL = "1.2.4";
 
     /*
      * SUBSTITUA estas URLs pelas URLs reais do seu servidor.
@@ -368,7 +368,21 @@ public class Atualizador extends JDialog {
                             JOptionPane.QUESTION_MESSAGE);
 
                     if (opcao == JOptionPane.YES_OPTION) {
-                        executarInstalador(instalador);
+                        int confirmacao = JOptionPane.showConfirmDialog(
+                                Atualizador.this,
+                                "Para concluir a atualização, o Maxcode AI será fechado\n"
+                                + "e o instalador será executado.\n\n"
+                                + "Deseja continuar?",
+                                "Atualização do Maxcode AI",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.WARNING_MESSAGE);
+
+                        if (confirmacao == JOptionPane.YES_OPTION) {
+                            executarInstalador(instalador);
+                        } else {
+                            lblStatus.setText("Instalação adiada.");
+                            atualizarEstado(false);
+                        }
                     } else {
                         lblStatus.setText("Instalador baixado. Execução adiada.");
                         atualizarEstado(false);
@@ -406,8 +420,22 @@ public class Atualizador extends JDialog {
                     .directory(arquivo.getParentFile())
                     .start();
 
-            lblStatus.setText("Instalador iniciado.");
+            lblStatus.setText("Instalador iniciado. Fechando o aplicativo...");
+
+            Window janelaPrincipal = getOwner();
             dispose();
+            if (janelaPrincipal != null) {
+                janelaPrincipal.dispose();
+            }
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ignored) {
+                    Thread.currentThread().interrupt();
+                }
+                System.exit(0);
+            }, "EncerrarParaAtualizacao").start();
 
         } catch (Exception ex) {
             mostrarErro("Não foi possível executar o instalador.",
